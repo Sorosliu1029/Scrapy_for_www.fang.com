@@ -2,12 +2,13 @@
 import scrapy
 from fang.items import FangItem
 from fang.settings import CH_EN_PAIR
-
+CITY = 'sh'
+START_URL = 'http://esf.%s.fang.com/housing/' % CITY
 
 class CommunitySpider(scrapy.Spider):
     name = 'Community'
     allowed_domains = ['fang.com']
-    start_urls = ['http://esf.sh.fang.com/housing/']
+    start_urls = [START_URL]
 
     def parse(self, response):
         house_list = response.xpath('//div[@class="info rel floatl ml15"]/dl/dt/a')
@@ -61,6 +62,7 @@ class CommunitySpider(scrapy.Spider):
                     if k == '环线位置':
                         k += '：'
                         v = v[3:]
+                    v = v.replace(',', '、')
                     if k in CH_EN_PAIR:
                         item[CH_EN_PAIR[k]] = v
         return item

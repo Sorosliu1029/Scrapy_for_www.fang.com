@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from settings import FIELD_LIST
+from fang.spiders.community import CITY
 # Define your item pipelines here
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
@@ -8,7 +9,7 @@ from settings import FIELD_LIST
 
 class FangPipeline(object):
     def __init__(self):
-        self.file = open('fang.csv', 'w+')
+        self.file = open(CITY + '.fang.csv', 'w+')
         self.count = 0
         self.file.write('-1,' + ','.join(FIELD_LIST) + '\n')
 
