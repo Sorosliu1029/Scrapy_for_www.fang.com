@@ -9,7 +9,7 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'fang'
+BOT_NAME = 'Googlebot'
 
 SPIDER_MODULES = ['fang.spiders']
 NEWSPIDER_MODULE = 'fang.spiders'
@@ -17,7 +17,7 @@ NEWSPIDER_MODULE = 'fang.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'fang (+http://www.yourdomain.com)'
-USER_AGENT = 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+USER_AGENT = 'MOZilla/5.0(x11; Linux x86_64; rv:7.0.1)Gecko/20100101 Firefox/7.7'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS=32
@@ -25,13 +25,13 @@ USER_AGENT = 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY=3
+DOWNLOAD_DELAY=0.25
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN=16
 #CONCURRENT_REQUESTS_PER_IP=16
 
 # Disable cookies (enabled by default)
-#COOKIES_ENABLED=False
+COOKIES_ENABLED=False
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED=False
@@ -44,9 +44,9 @@ USER_AGENT = 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36
 
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
+# SPIDER_MIDDLEWARES = {
 #    'fang.middlewares.MyCustomSpiderMiddleware': 543,
-#}
+# }
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
@@ -84,6 +84,27 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR='httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES=[]
 #HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+# setting according to scrapy_proxies module
+# Retry many times since proxies often fail
+RETRY_TIMES = 10
+# Retry on most error codes since proxies fail for different reasons
+RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
+
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy.downloadermiddlewares.retry.RetryMiddleware': 90,
+    # Fix path to this module
+    'fang.proxy.randomproxy.RandomProxy': 100,
+    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110,
+}
+
+# Proxy list containing entries like
+# http://host1:port
+# http://username:password@host2:port
+# http://host3:port
+# ...
+PROXY_LIST = '../http_proxy_list.txt'
+################################################################
 
 CH_EN_PAIR = {
     '小区地址：': 'community_address',

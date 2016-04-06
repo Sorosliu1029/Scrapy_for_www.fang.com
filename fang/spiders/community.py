@@ -7,7 +7,7 @@ from fang.settings import CH_EN_PAIR
 class CommunitySpider(scrapy.Spider):
     name = 'Community'
     allowed_domains = ['fang.com']
-    start_urls = ['http://fang.com/SoufunFamily.htm']
+    start_urls = ['http://fang.com/SoufunFamily.html']
 
     def parse(self, response):
         main_body = response.xpath('//div[@id="c02"]')[0]
