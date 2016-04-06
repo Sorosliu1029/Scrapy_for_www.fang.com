@@ -15,7 +15,7 @@ class FangPipeline(object):
         field_values = [item.get(field, ' ') for field in FIELD_LIST]
         if city_name not in self.city_files:
             self.city_files[city_name] = City(city_name)
-            self.city_files[city_name].file = open('/Data/' + city_name + '.csv', 'w+')
+            self.city_files[city_name].file = open('Data/' + city_name + '.csv', 'w+')
             self.city_files[city_name].file.write('-1,' + ','.join(FIELD_LIST) + '\n')
 
         city = self.city_files[city_name]
