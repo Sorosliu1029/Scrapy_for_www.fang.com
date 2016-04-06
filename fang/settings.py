@@ -53,6 +53,10 @@ COOKIES_ENABLED=False
 #DOWNLOADER_MIDDLEWARES = {
 #    'fang.middlewares.MyCustomDownloaderMiddleware': 543,
 #}
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+    'fang.spiders.random_useragent.RandomUserAgentMiddleware': 400
+}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -87,23 +91,25 @@ ITEM_PIPELINES = {
 
 # setting according to scrapy_proxies module
 # Retry many times since proxies often fail
-RETRY_TIMES = 10
+# RETRY_TIMES = 10
 # Retry on most error codes since proxies fail for different reasons
-RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
-
-DOWNLOADER_MIDDLEWARES = {
-    'scrapy.downloadermiddlewares.retry.RetryMiddleware': 90,
-    # Fix path to this module
-    'fang.proxy.randomproxy.RandomProxy': 100,
-    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110,
-}
+# RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
+#
+# DOWNLOADER_MIDDLEWARES = {
+#     'scrapy.downloadermiddlewares.retry.RetryMiddleware': 90,
+#     # Fix path to this module
+#     'fang.proxy.randomproxy.RandomProxy': 100,
+#     'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110,
+# }
 
 # Proxy list containing entries like
 # http://host1:port
 # http://username:password@host2:port
 # http://host3:port
 # ...
-PROXY_LIST = '../http_proxy_list.txt'
+# PROXY_LIST = '../http_proxy_list.txt'
+
+COOKIES_ENABLED = False
 ################################################################
 
 CH_EN_PAIR = {
