@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from settings import FIELD_LIST
-from fang.spiders.community import CITY
 # Define your item pipelines here
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
@@ -9,12 +8,25 @@ from fang.spiders.community import CITY
 
 class FangPipeline(object):
     def __init__(self):
-        self.file = open(CITY + '.fang.csv', 'w+')
-        self.count = 0
-        self.file.write('-1,' + ','.join(FIELD_LIST) + '\n')
+        self.city_files = {}
 
     def process_item(self, item, spider):
+        city_name = item['city_name']
         field_values = [item.get(field, ' ') for field in FIELD_LIST]
-        self.file.write(str(self.count) + ',' + ','.join(field_values) + '\n')
-        self.count += 1
+        if city_name not in self.city_files:
+            self.city_files[city_name] = City(city_name)
+            self.city_files[city_name].file = open(city_name + '.csv', 'w+')
+            self.city_files[city_name].file.write('-1,' + ','.join(FIELD_LIST) + '\n')
+
+        city = self.city_files[city_name]
+        city.file.write(str(city.count) + ',' + ','.join(field_values) + '\n')
+        city.count += 1
+
         return item
+
+
+class City:
+    def __init__(self, name):
+        self.name = name
+        self.count = 0
+        self.file = None

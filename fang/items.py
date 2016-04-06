@@ -11,6 +11,7 @@ import scrapy
 class FangItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
+    city_name = scrapy.Field()
 
     community_name = scrapy.Field()
 
