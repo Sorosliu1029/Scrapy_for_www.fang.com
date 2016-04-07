@@ -11,17 +11,16 @@ import logging
 logger = logging.getLogger('scrapy')
 
 class RandomUserAgentMiddleware(UserAgentMiddleware):
-
-    def __init__(self,user_agent):
+    def __init__(self, user_agent):
         self.user_agent = user_agent
 
     def process_request(self, request, spider):
         ua = random.choice(self.user_agent_list)
         #显示当前使用的UserAgent
         if ua:
-            print "**************Current UserAgent:%s********************" %ua
+            # print "**************Current UserAgent:%s********************" % ua
             #记录
-            logger.info('Current UserAgent: '+ua)
+            # logger.info('Current UserAgent: '+ua)
             #设置User—Agent
             request.headers.setdefault('User-Agent',ua)
 

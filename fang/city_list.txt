@@ -1,0 +1,17 @@
+常州-http://esf.cz.fang.com/
+上海-http://esf.sh.fang.com/
+淮安-http://esf.huaian.fang.com/
+江阴-http://esf.jy.fang.com/
+昆山-http://esf.ks.fang.com/
+南京-http://esf.nanjing.fang.com/
+南通-http://esf.nt.fang.com/
+苏州-http://esf.suzhou.fang.com/
+泰州-http://esf.taizhou.fang.com/
+无锡-http://esf.wuxi.fang.com/
+徐州-http://esf.xz.fang.com/
+扬州-http://esf.yz.fang.com/
+杭州-http://esf.hz.fang.com/
+嘉兴-http://esf.jx.fang.com/
+金华-http://esf.jh.fang.com/
+宁波-http://esf.nb.fang.com/
+温州-http://esf.wz.fang.com/
