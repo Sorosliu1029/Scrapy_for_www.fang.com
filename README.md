@@ -10,11 +10,9 @@ Currently, just some basic information about a specific community.
 
 FYI, the data is DIRTY.
 
-#### Damn it…. 
+#### Damn it….
 
-​:evil:​
-
-With some ridiculous reason, if the city is in northern part of China, the crawler will show INFO:
+👿With some ridiculous reason, if the city is in northern part of China, the crawler will show INFO:
 
 `Connection to the other side was lost in a non-clean fashion: Connection lost.`
 
