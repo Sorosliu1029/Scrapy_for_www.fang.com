@@ -51,6 +51,15 @@ class CommunitySpider(scrapy.Spider):
         community_urls = filter(lambda url: url[-4:] == 'com/', community_urls)
         community_urls = map(lambda url: url+'xiangqing/', community_urls)
 
+        for url in community_urls:
+            request = scrapy.Request(url, callback=self.parse_community_detail)
+            request.meta['city_name'] = city_name
+            if url == community_urls[-1]:
+                request.meta['city_done'] = True
+            else:
+                request.meta['city_done'] = False
+            yield request
+
         next_page = response.xpath('//a[@id="PageControl1_hlk_next"]')
         if next_page:
             next_page = next_page[0].css('a::attr(href)').extract()[0].encode('utf-8')
@@ -60,31 +69,16 @@ class CommunitySpider(scrapy.Spider):
             yield request
         else:
             self.city_index += 1
-
-        for url in community_urls:
-            request = scrapy.Request(url, callback=self.parse_community_detail)
-            request.meta['city_name'] = city_name
-            if url == community_urls[-1] and not next_page:
-                request.meta['city_done'] = True
-            else:
-                request.meta['city_done'] = False
-            yield request
+            yield self.get_city_request()
 
 
     def parse_community_detail(self, response):
         item = FangItem()
 
-        is_city_done = response.meta['city_done']
-        if is_city_done:
-            yield self.get_city_request()
-
         item['city_name'] = response.meta['city_name']
-        try:
-            info = response.xpath('//div[@class="leftinfo"]')[0]
-            community_name = info.xpath('//div[@class="ewmBoxTitle"]/span/text()').extract()[0]
-            item['community_name'] = community_name.encode('utf-8')
-        except IndexError:
-            item['community_name'] = 'UNNAMED'
+        info = response.xpath('//div[@class="leftinfo"]')[0]
+        community_name = info.xpath('//div[@class="ewmBoxTitle"]/span/text()').extract()[0]
+        item['community_name'] = community_name.encode('utf-8')
 
         priceinfo= response.xpath('//span[@class="pred pirceinfo"]/text()')
         try:
